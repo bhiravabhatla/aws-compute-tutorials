@@ -3,5 +3,6 @@ sudo yum update -y
 sudo yum install httpd php wget -y
 sudo wget -O /var/www/html/Avengers.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/ALB/Avengers.gif
 sudo wget -O /var/www/html/index.php https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/ALB/index.php
+echo "Alias /Marvel /var/www/html" >> /etc/httpd/conf/httpd.conf
 sudo systemctl start httpd
 sudo systemctl enable httpd
