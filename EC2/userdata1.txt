@@ -5,8 +5,10 @@ sudo systemctl enable httpd
 sudo cd /var/www/html
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/index.html
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/Avengers.gif
+sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/Avengers.gif
+sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/rainbow.gif
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/ca.gif
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/hulk.gif
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/iron.gif
 sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/thor.gif
-sudo sudo systemctl restart httpd
+sudo systemctl restart httpd
