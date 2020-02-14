@@ -1,0 +1,7 @@
+#!/bin/bash
+sudo yum update -y
+sudo yum install httpd php wget -y
+sudo wget -O /var/www/html/dc.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/ALB/dc.gif
+sudo wget -O /var/www/html/index-dc.php https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/ALB/index-dc.php
+sudo systemctl start httpd
+sudo systemctl enable httpd

@@ -3,7 +3,7 @@
 <body>
 <h1>
 <center>
-<IMG SRC="Avengers.gif" ALT="Avengers Assemble!"><br>
+<IMG SRC="dc.gif" ALT="Wannabees :P"><br>
 <?php
 $eip = file_get_contents('http://169.254.169.254/latest/meta-data/public-ipv4');
 echo $eip;
