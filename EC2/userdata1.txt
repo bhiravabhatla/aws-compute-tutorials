@@ -1,14 +1,14 @@
 #!/bin/bash
 sudo yum update -y
-sudo yum install -y httpd wget
-sudo systemctl enable httpd
+sudo yum install -y httpd
+sudo yum install  -y  wget
 sudo cd /var/www/html
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/index.html
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/Avengers.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/Avengers.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/rainbow.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/ca.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/hulk.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/iron.gif
-sudo wget https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/thor.gif
-sudo systemctl restart httpd
+sudo wget -O /var/www/html/index.html https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/index.html
+sudo wget -O /var/www/html/Avengers.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/Avengers.gif
+sudo wget -O /var/www/html/rainbow.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/rainbow.gif
+sudo wget -O /var/www/html/ca.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/ca.gif
+sudo wget -O /var/www/html/hulk.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/hulk.gif
+sudo wget -O /var/www/html/iron.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/iron.gif
+sudo wget -O /var/www/html/thor.gif https://raw.githubusercontent.com/bhiravabhatla/aws-compute-tutorials/master/EC2/thor.gif
+sudo systemctl start httpd
+sudo systemctl enable httpd
