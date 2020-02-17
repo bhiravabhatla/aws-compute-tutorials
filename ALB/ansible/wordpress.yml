@@ -22,38 +22,45 @@
 
     - name: Install python mysql for ansible
       yum: name=MySQL-python state=present
+      tags: mysql
 
     - name: Install mysql repo
       yum:
         name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
         state: installed
+      tags: mysql
 
     - name: Install mysql
       yum:
         name: [ 'mysql-community-server', 'mysql-community-common', 'mysql-community-libs' , 'mysql-community-client' ]
         state: installed
+      tags: mysql
 
     - name: Start mysqld
       service:
         name: mysqld
         state: started
         enabled: yes
+      tags: mysql
 
     - name: Retrieve the temp mysql root password
       shell: 'grep ''temporary password'' /var/log/mysqld.log | awk ''{print $11}'''
       register: mysql_temp_password
       ignore_errors: yes
+      tags: mysql
 
     - name: Update mysql root password with temp password
       shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_root_password }}''); FLUSH PRIVILEGES;" --connect-expired-password -u root -i -p''{{ mysql_temp_password.stdout }}'''
       when: mysql_temp_password.stdout != ''
       register: mysqlPasswordUpdated
       ignore_errors: yes
+      tags: mysql
 
     - name: Start mysqld
       service:
         name: mysqld
         state: restarted
+      tags: mysql
 
     - name: create wordpress db
       mysql_db:
@@ -61,6 +68,7 @@
         state: present
         login_user: root
         login_password: "{{ mysql_root_password }}"
+      tags: mysql
 
     - name: create wordpress user
       mysql_user:
@@ -70,6 +78,7 @@
         login_password: "{{ mysql_root_password }}"
         priv: 'wordpress.*:ALL'
         state: present
+      tags: mysql
 
 
 
@@ -89,6 +98,7 @@
       template:
         src:  templates/wp-config.php
         dest: /var/www/html/wp-config.php
+      tags: mysql
 
     - name: Restart httpd
       service:
