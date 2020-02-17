@@ -20,6 +20,9 @@
     - name: Install PHP components
       shell: amazon-linux-extras install php7.3 -y
 
+    - name: Install python mysql for ansible
+      yum: name=MySQL-python state=present
+
     - name: Install mysql repo
       yum:
         name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
@@ -27,14 +30,48 @@
 
     - name: Install mysql
       yum:
-        name: mysql-community-server
+        name: [ 'mysql-community-server', 'mysql-community-common', 'mysql-community-libs' , 'mysql-community-client' ]
         state: installed
 
     - name: Start mysqld
       service:
-          name: mysql
-          state: started
-          enabled: yes
+        name: mysqld
+        state: started
+        enabled: yes
+
+    - name: Retrieve the temp mysql root password
+      shell: 'grep ''temporary password'' /var/log/mysqld.log | awk ''{print $11}'''
+      register: mysql_temp_password
+      ignore_errors: yes
+
+    - name: Update mysql root password with temp password
+      shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_root_password }}''); FLUSH PRIVILEGES;" --connect-expired-password -u root -i -p''{{ mysql_temp_password.stdout }}'''
+      when: mysql_temp_password.stdout != ''
+      register: mysqlPasswordUpdated
+      ignore_errors: yes
+
+    - name: Start mysqld
+      service:
+        name: mysqld
+        state: restarted
+
+    - name: create wordpress db
+      mysql_db:
+        name: wordpress
+        state: present
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+
+    - name: create wordpress user
+      mysql_user:
+        name: wp_user
+        password: "{{ wp_db_password }}"
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        priv: 'wordpress.*:ALL'
+        state: present
+
+
 
     - name: Download wordpress tar
       get_url:
