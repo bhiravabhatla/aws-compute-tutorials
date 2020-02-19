@@ -1,8 +1,8 @@
 # aws-compute-tutorials
 
-##With local Mysql
+## With local Mysql
 
 ansible-playbook -ilocal wordpress.yml --skip-tags "mysql"
 
-##With RDS
+## With RDS
 ansible-playbook -ilocal wordpress.yml --skip-tags "mysql"
